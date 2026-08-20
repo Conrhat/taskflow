@@ -14,8 +14,37 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $personas = [
+        [
+            'nombre' => "León XIV",
+            'edad' => 57,
+            'rol' => "Papa"
+        ],
+        [
+            'nombre' => "Francisco I",
+            'edad' => 87,
+            'rol' => "Papa"
+        ],
+        [
+            'nombre' => "Juan Pablo II",
+            'edad' => 84,
+            'rol' => "Papa"
+        ],
+        [
+            'nombre' => "Benedicto XVI",
+            'edad' => 95,
+            'rol' => "Papa"
+        ],
+        [
+            'nombre' => "Juan XXIII",
+            'edad' => 81,
+            'rol' => "Papa"
+        ]
+
+    ];
+    return view('welcome', compact('personas'));
 });
+
 Route::get('/about', function () {
     return view('about');
 });
