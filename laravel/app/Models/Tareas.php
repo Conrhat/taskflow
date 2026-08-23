@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\EstadoTarea;
 
 class Tareas extends Model
 {
@@ -14,7 +15,7 @@ class Tareas extends Model
     protected $fillable = ['titulo', 'descripcion', 'categoria_id', 'usuario_id', 'estado'];
 
     protected $casts = [
-        'estado' => 'boolean',
+        'estado' => EstadoTarea::class,
         'categoria_id' => 'integer',
         'usuario_id' => 'integer'
     ];

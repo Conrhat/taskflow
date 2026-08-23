@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tareas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TareasController extends Controller
 {
@@ -22,10 +23,10 @@ class TareasController extends Controller
         $request->validate([
             'titulo' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'categoria_id' => 'required|exists:categorias,id',
+            'categoria_id' => 'required|exists:categoria,id',
         ]);
 
-        Tareas::create($request->all());
+        Tareas::create($request->all() + ['usuario_id' => Auth::id()]);
 
         return redirect()->route('tareas.index')
                          ->with('success', 'Tarea creada exitosamente.');
@@ -41,7 +42,7 @@ class TareasController extends Controller
         $request->validate([
             'titulo' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'categoria_id' => 'required|exists:categorias,id',
+            'categoria_id' => 'required|exists:categoria,id',
         ]);
 
         $tarea->update($request->all());
