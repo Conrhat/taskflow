@@ -1,78 +1,76 @@
-<div
-    class="bg-gray-800 sidebar-panel top-0 bottom-0 fixed w-[250px] z-50 transition-transform duration-300 ease-in-out flex flex-col"
-    style="border-right:1px solid #e4f0e9; box-shadow:2px 0 12px rgba(0,40,20,0.06);">
+<aside id="sidebar"
+    class="fixed top-0 bottom-0 left-0 w-[250px] z-50 flex flex-col
+           bg-gradient-to-b from-[#0b1230] via-[#0e1a45] to-[#0a1230]
+           border-r border-white/5 shadow-2xl shadow-black/30
+           transition-transform duration-300 ease-in-out">
 
-    <div class="flex items-center gap-3 px-5 h-[67px] flex-shrink-0"
-        style="border-bottom:1px solid #1f2937;">
-        <a href="" class="flex items-center gap-2.5 min-w-0">
-            <div class="w-8 h-8 rounded-lg bg-white overflow-hidden flex-shrink-0 flex items-center justify-center p-1"
-                style="border:1px solid #1f2937; box-shadow:0 1px 4px rgba(0,30,15,0.08);">
-                <span class="material-symbols-outlined">task_alt</span>
+    {{-- LOGO --}}
+    <div class="flex items-center gap-3 px-5 h-[70px] flex-shrink-0 border-b border-white/5">
+        <a href="{{ route('dashboard') }}" class="flex items-center gap-2.5 min-w-0">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700
+                        flex items-center justify-center shadow-lg shadow-blue-900/40
+                        flex-shrink-0">
+                <span class="material-symbols-outlined text-white text-[20px]">bolt</span>
             </div>
             <div class="flex items-baseline gap-1.5 min-w-0">
-                <span class="text-md font-bold tracking-tight" style="color:#f3f3f3;">TaskFlow</span>
-                <span class="text-[11px] font-medium text-gray-400">v1</span>
+                <span class="text-[17px] font-bold tracking-tight text-white">TaskFlow</span>
+                <span class="text-[11px] font-medium text-blue-300/50">v1</span>
             </div>
         </a>
     </div>
-    <ul>
-        <li class="px-4 py-3 flex flex-col gap-2 mt-4">
-            <div class="px-2 mb-1 text-[11px] font-semibold uppercase tracking-[0.2em]" style="color:#edf2ef;">
-                Módulos
-            </div>
 
-            <a href="/" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150" style="color:#030c08; background:#f4fbf7; border:1px solid #dcefe5;">
-                <span class="material-symbols-outlined">dashboard</span>
-                Dashboard
-            </a>
-
-            <div class="flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150" style="color:#030c08; background:#f4fbf7; border:1px solid #e4f0e9;">
-                    <span class="material-symbols-outlined">work</span>
-                    <a href="#">
-                        Proyectos
-                    </a>
-                <select class="rounded-lg border border-[#dcefe5] bg-[#f8fcfa] px-2 py-1 text-xs font-medium text-[#030c08] outline-none">
-                    <option>Activo</option>
-                    <option>Archivado</option>
-                </select>
-            </div>
-
-            <div class="flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150" style="color:#030c08; background:#f4fbf7; border:1px solid #e4f0e9;">
-                    <span class="material-symbols-outlined">report</span>
-                    <a href="#">Reportes</a>
-                <select class="rounded-lg border border-[#dcefe5] bg-[#f8fcfa] px-2 py-1 text-xs font-medium text-[#030c08] outline-none">
-                    <option>Mensual</option>
-                    <option>Anual</option>
-                </select>
-            </div>
-
-            <div class="flex items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150" style="color:#030c08; background:#f4fbf7; border:1px solid #e4f0e9;">
-                    <span class="material-symbols-outlined">person</span>
-                    <a href="#"> Usuarios</a>
-                <select class="rounded-lg border border-[#dcefe5] bg-[#f8fcfa] px-2 py-1 text-xs font-medium text-[#030c08] outline-none">
-                    <option>Activos</option>
-                    <option>Inactivos</option>
-                </select>
-            </div>
-            
-            <a href="#" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150" style="color:#030c08; background:#f4fbf7; border:1px solid #e4f0e9;">
-                <span class="material-symbols-outlined">settings</span>
-                Configuración
-            </a>
-
-            <a href="/about" class="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150" style="color:#030c08; background:#f4fbf7; border:1px solid #e4f0e9;">
-                <span class="material-symbols-outlined">help</span>
-                Sobre Nosotros
-            </a>
-        </li>
-    </ul>
-    <div class="flex-1 overflow-y-auto py-3 px-3 custom-scrollbar">
-    </div>
-
-    <div class="flex-shrink-0 px-4 py-3" style="border-top:1px solid #e4f0e9;">
-        <p class="text-xs text-center font-medium" style="color:#888b89;">
-            Consultoría Ambiental
+    {{-- MENU --}}
+    <nav class="flex-1 overflow-y-auto py-5 px-3">
+        <p class="px-3 mb-3 text-[11px] font-semibold uppercase tracking-wider text-blue-300/40">
+            Menú
         </p>
+
+        @php
+            $links = [
+                ['route' => 'dashboard',        'active' => request()->routeIs('dashboard'),        'label' => 'Dashboard',   'icon' => 'grid_view'],
+                ['route' => 'categorias.index', 'active' => request()->routeIs('categorias.*'),     'label' => 'Categorías',  'icon' => 'sell'],
+                ['route' => 'tareas.index',     'active' => request()->routeIs('tareas.*'),         'label' => 'Tareas',      'icon' => 'checklist'],
+            ];
+        @endphp
+
+        @foreach ($links as $link)
+            <a href="{{ route($link['route']) }}"
+                class="group relative flex items-center gap-3 w-full px-3 py-2.5 mb-1 rounded-lg text-sm font-medium
+                    transition-all duration-200 ease-in-out
+                    {{ $link['active']
+                            ? 'bg-blue-500/15 text-white'
+                            : 'text-blue-200/60 hover:bg-white/5 hover:text-white hover:translate-x-1' }}">
+
+                @if ($link['active'])
+                    <span class="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[3px] rounded-full bg-blue-400"></span>
+                @endif
+
+                <span class="material-symbols-outlined text-[20px] {{ $link['active'] ? 'text-blue-400' : '' }}">
+                    {{ $link['icon'] }}
+                </span>
+                <span>{{ $link['label'] }}</span>
+            </a>
+        @endforeach
+    </nav>
+
+    {{-- USUARIO --}}
+    <div class="flex-shrink-0 px-4 py-4 border-t border-white/5">
+        <div class="flex items-center gap-3 rounded-xl bg-white/5 px-3 py-3">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-700
+                        flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+                {{ strtoupper(substr(Auth::user()->user_name ?? 'U', 0, 2)) }}
+            </div>
+            <div class="min-w-0">
+                <p class="text-sm font-semibold text-white truncate">{{ Auth::user()->user_name }}</p>
+                <p class="text-xs text-blue-300/50 truncate">Usuario</p>
+            </div>
+        </div>
     </div>
 
-</div>
+</aside>
+
+<script>
+    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+        document.getElementById('sidebar').classList.toggle('-translate-x-full');
+    });
+</script>

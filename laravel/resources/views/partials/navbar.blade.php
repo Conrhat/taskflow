@@ -1,39 +1,113 @@
-<nav class="mx-2 mt-2 rounded-lg bg-gray-800 px-4 py-3 text-white shadow-md" aria-label="Navegación principal">
-  <div class="flex items-center justify-between gap-4">
-    <div class="flex items-center gap-4">
-      <a href="#" class="text-lg font-semibold">TaskFlow</a>
+<header
+    class="fixed top-0 right-0 left-[250px] h-[70px] z-40
+           bg-[#0b1230]/95 backdrop-blur-md border-b border-white/5
+           transition-all duration-300 ease-in-out">
 
-      <div class="hidden gap-2 md:flex">
-        <a href="#" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium">Dashboard</a>
-        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/10 hover:text-white">Proyectos</a>
-        <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/10 hover:text-white">Reportes</a>
-      </div>
-    </div>
+    <div class="h-full px-6 flex items-center justify-between">
 
-    <div class="w-full max-w-sm min-w-[200px]">
-        <div class="relative flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
-            <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
-            </svg>
-        
-            <input
-            class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-            placeholder="UI Kits, Dashboards..." 
-            />
-            
-            <button
-            class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
-            type="button"
-            >
-            Search
-            </button> 
+        {{-- IZQUIERDA --}}
+        <div class="flex items-center gap-4">
+
+            {{-- MENU TOGGLE --}}
+            <button id="sidebarToggle"
+                class="w-10 h-10 flex items-center justify-center rounded-lg
+                       text-blue-200/60 hover:bg-white/5 hover:text-white
+                       transition-colors duration-200">
+                <span class="material-symbols-outlined text-[22px]">menu</span>
+            </button>
+
+            {{-- BUSCADOR --}}
+            <div class="relative hidden sm:block">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-blue-300/40 text-[19px]">search</span>
+                <input type="text" placeholder="Buscar..."
+                    class="w-[280px] h-10 rounded-lg bg-white/5 border border-white/10 pl-10 pr-4 text-sm
+                           text-white placeholder:text-blue-300/40 outline-none
+                           transition-all duration-200
+                           focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
+            </div>
+
         </div>
-    </div>
 
-    <div class="flex items-center gap-3">
-      <a href="#" class="rounded-md bg-white/10 px-3 py-2 text-sm font-medium hover:bg-white/20">
-        Perfil
-      </a>
+        {{-- DERECHA --}}
+        <div class="flex items-center gap-3">
+
+            {{-- NOTIFICACIONES --}}
+            <button
+                class="relative w-10 h-10 rounded-full border border-white/10
+                       flex items-center justify-center text-blue-200/60
+                       hover:bg-white/5 hover:text-white transition-colors duration-200">
+                <span class="material-symbols-outlined text-[20px]">notifications</span>
+                <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-blue-400 border-2 border-[#0b1230]"></span>
+            </button>
+
+            <div class="h-6 w-px bg-white/10"></div>
+
+            {{-- USUARIO --}}
+            <div class="relative">
+                <button id="navUserButton" type="button"
+                    class="flex items-center gap-3 pl-1 pr-2 py-1 rounded-xl
+                           hover:bg-white/5 transition-colors duration-200">
+
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-700
+                                flex items-center justify-center text-sm font-bold text-white flex-shrink-0">
+                        {{ strtoupper(substr(Auth::user()->user_name ?? 'U', 0, 2)) }}
+                    </div>
+
+                    <div class="hidden lg:block text-left">
+                        <p class="text-sm font-semibold text-white leading-tight">{{ Auth::user()->user_name }}</p>
+                        <p class="text-xs text-blue-300/50 leading-tight">Usuario</p>
+                    </div>
+
+                    <span class="material-symbols-outlined text-[18px] text-blue-200/60 transition-transform duration-200" id="navUserChevron">
+                        expand_more
+                    </span>
+                </button>
+
+                {{-- DROPDOWN --}}
+                <div id="navUserDropdown"
+                    class="hidden absolute top-full right-0 mt-2 w-56 rounded-xl overflow-hidden z-50
+                           bg-[#101a45] border border-white/10 shadow-2xl shadow-black/40
+                           origin-top-right transition-all duration-150">
+
+                    <div class="px-4 py-3 border-b border-white/5">
+                        <p class="text-sm font-semibold text-white truncate">{{ Auth::user()->user_name }}</p>
+                        <p class="text-xs text-blue-300/50">Sesión activa</p>
+                    </div>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit"
+                            class="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-red-300
+                                   hover:bg-red-500/10 hover:text-red-200 transition-colors duration-150">
+                            <span class="material-symbols-outlined text-[18px]">logout</span>
+                            Cerrar sesión
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-  </div>
-</nav>
+</header>
+
+<script>
+    (function () {
+        const button = document.getElementById('navUserButton');
+        const dropdown = document.getElementById('navUserDropdown');
+        const chevron = document.getElementById('navUserChevron');
+
+        button?.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dropdown.classList.toggle('hidden');
+            chevron.classList.toggle('rotate-180');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+                dropdown.classList.add('hidden');
+                chevron.classList.remove('rotate-180');
+            }
+        });
+    })();
+</script>
