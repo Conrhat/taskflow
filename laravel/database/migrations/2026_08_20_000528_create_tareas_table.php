@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id');
             $table->string('titulo');
             $table->text('descripcion');
-            $table->enum('estado', ['pendiente', 'en_progreso', 'completada'])->default('pendiente');
+            $table->enum('estado', ['pendiente', 'en_proceso', 'completada'])->default('pendiente');
             $table->timestamps();
             $table->softDeletes();
 

@@ -3,6 +3,7 @@
 use App\Enums\EstadoTarea;
 use App\Models\Categoria;
 use App\Models\Tareas;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -16,14 +17,14 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
-        $tareas = Tareas::with('categoria')->latest()->get();
+        $tareas = Tareas::with('categoria')->where('usuario_id', Auth::id())->latest()->get();
 
         return view('welcome', [
             'total' => $tareas->count(),
             'pendientes' => $tareas->where('estado', EstadoTarea::PENDIENTE)->count(),
             'enProceso' => $tareas->where('estado', EstadoTarea::EN_PROCESO)->count(),
             'completadas' => $tareas->where('estado', EstadoTarea::COMPLETADA)->count(),
-            'categorias' => Categoria::count(),
+            'categorias' => Categoria::where('usuario_id', Auth::id())->count(),
             'recientes' => $tareas->take(5),
         ]);
     })->name('dashboard');
