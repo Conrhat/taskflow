@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Enums\EstadoTarea;
 use App\Models\Tareas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Enum;
 
 class TareasController extends Controller
 {
@@ -49,6 +51,18 @@ class TareasController extends Controller
 
         return redirect()->route('tareas.index')
                          ->with('success', 'Tarea actualizada exitosamente.');
+    }
+
+    public function updateEstado(Request $request, Tareas $tarea)
+    {
+        $request->validate([
+            'estado' => ['required', new Enum(EstadoTarea::class)],
+        ]);
+
+        $tarea->update(['estado' => $request->estado]);
+
+        return redirect()->route('tareas.index')
+                         ->with('success', 'Estado actualizado.');
     }
 
     public function destroy(Tareas $tarea)

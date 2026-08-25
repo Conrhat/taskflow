@@ -54,15 +54,23 @@
                                     'completada' => 'bg-green-100 text-green-700',
                                 ];
                                 $estadoValue = $tarea->estado?->value ?? $tarea->estado;
-                                $estadoLabel = $estadoValue ? ucfirst(str_replace('_', ' ', $estadoValue)) : '—';
                             @endphp
                             <tr class="tarea-row hover:bg-gray-50">
                                 <td class="px-4 py-3 font-medium text-gray-800 tarea-titulo">{{ $tarea->titulo }}</td>
                                 <td class="px-4 py-3 text-gray-600 tarea-categoria">{{ $tarea->categoria?->nombre ?? '—' }}</td>
                                 <td class="px-4 py-3">
-                                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold {{ $estadoStyles[$estadoValue] ?? 'bg-gray-100 text-gray-700' }}">
-                                        {{ $estadoLabel }}
-                                    </span>
+                                    <form action="{{ route('tareas.estado', $tarea) }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <select name="estado" onchange="this.form.submit()"
+                                            class="text-xs font-semibold rounded-full px-2.5 py-1 border-0 outline-none cursor-pointer {{ $estadoStyles[$estadoValue] ?? 'bg-gray-100 text-gray-700' }}">
+                                            @foreach (\App\Enums\EstadoTarea::cases() as $opcion)
+                                                <option value="{{ $opcion->value }}" @selected($estadoValue === $opcion->value)>
+                                                    {{ ucfirst(str_replace('_', ' ', $opcion->value)) }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </form>
                                 </td>
                                 <td class="px-4 py-3 text-gray-500">{{ $tarea->created_at?->format('d/m/Y') }}</td>
                                 <td class="px-4 py-3">

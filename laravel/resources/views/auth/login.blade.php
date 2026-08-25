@@ -8,19 +8,16 @@
     }
 </style>
 
-<main class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden
-             bg-gradient-to-br from-[#0b1230] via-[#0e1a45] to-[#0a1230]">
+<main class="min-h-screen flex bg-[#0b1230]">
 
-    {{-- Blobs decorativos --}}
-    <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-600/30 blur-3xl animate-pulse"></div>
-    <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-blue-400/20 blur-3xl animate-pulse [animation-delay:700ms]"></div>
+    {{-- Panel izquierdo: login --}}
+    <div class="w-full lg:w-1/2 flex items-center justify-center relative overflow-hidden
+                bg-gradient-to-br from-[#0b1230] via-[#0e1a45] to-[#0a1230] px-4 py-10">
 
-    <div class="py-4 px-4 md:px-8 relative z-10">
+        <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-600/30 blur-3xl animate-pulse"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-blue-400/20 blur-3xl animate-pulse [animation-delay:700ms]"></div>
 
-        {{-- Tarjeta cristal --}}
-        <div class="rounded-2xl p-6 max-w-md mx-auto md:p-8
-                    bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/30
-                    [animation:fadeInUp_0.7s_ease-out_both]">
+        <div class="w-full max-w-md relative z-10 [animation:fadeInUp_0.7s_ease-out_both]">
 
             <div class="mb-8 [animation:fadeInUp_0.7s_ease-out_0.1s_both]">
                 <h1 class="text-white text-3xl font-bold mb-4">Iniciar sesión</h1>
@@ -79,6 +76,19 @@
                     </a>
                 </div>
             </form>
+        </div>
+    </div>
+
+    {{-- Panel derecho: paisaje --}}
+    <div class="hidden lg:block lg:w-1/2 relative overflow-hidden [animation:fadeInUp_0.9s_ease-out_0.2s_both]">
+        <img src="{{ asset('storage/image/puesta-sol-misurina_181624-34793.avif') }}"
+             alt="Puesta de sol en Misurina"
+             class="absolute inset-0 w-full h-full object-cover object-center">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/0 to-black/10"></div>
+
+        <div class="absolute bottom-10 left-10 right-10 text-white/90 [animation:fadeInUp_0.9s_ease-out_0.5s_both]">
+            <p class="text-lg font-semibold drop-shadow">TaskFlow</p>
+            <p class="text-sm text-white/70 drop-shadow">Organiza tu trabajo con la calma de un buen paisaje.</p>
         </div>
     </div>
 </main>
